@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Strict//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Virtual USB Analyzer - Samples</title>
+  <link rel="stylesheet" href="style.css" type="text/css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<div class="column">
+  <img src="vusb-analyzer-logo-96.png" class="logo" alt="vusb-analyzer logo"/>
+  <div class="h1prefix">the</div>
+  <h1>Virtual USB Analyzer</h1>
+
+  <div class="nav">
+    <a class="nav" href="index.html">About</a>
+    <a class="nav" href="download.html">Download</a>
+    <a class="nav" href="tutorial.html">Tutorial</a>
+    <a class="nav-current" href="samples.html#">Samples</a>
+  </div>
+
+  <div class="content">
+
+    <h2 class="first">Sample Log Files</h2>
+
+    <p>
+    This page has a selection of sample log files, all directly
+    readable by vusb-analyzer. Note that you don't need to unpack the
+    .gz files, vusb-analyzer can decompress them automatically.
+    </p>
+
+    <p>
+    Each log file below identifies the guest OS and device of interest,
+    then it lists the sequence of events that occurred during the timespan
+    represented by the log.
+    </p>
+
+    <h3><tt><a href="samples/windows-storage-mount.log.gz">windows-storage-mount.log.gz</a></tt>
+    (66 KB)</h3>
+    <p>
+      Windows XP, USB SD card reader with 1GB card
+    </p>
+    <ol>
+      <li>USB storage device (#1) connects to UHCI controller.</li>
+      <li>VMware Virtual Hub device (#2) connects automatically to UHCI controller. (This always happens after the first Full Speed or Low Speed device is attached. VMware's USB 1.1 UHCI controller only has two ports, so to ensure it doesn't run out of ports we automatically add a hub after the first device.)</li>
+      <li>The devices enumerate.</li>
+      <li>USB storage device is probed with a SCSI INQUIRY.</li>
+      <li>USB hub device is initialized.</li>
+      <li>Storage device capacity is read.</li>
+      <li>FAT filesystem mounted. This involves several small reads.</li>
+      <li>Storage device is spammed with TEST_UNIT_READY requests every second.</li>
+    </ol>
+
+    <h3><tt><a href="samples/linux-storage-read.log.gz">linux-storage-read.log.gz</a></tt>
+    (4.2 MB)</h3>
+    <p>
+      Ubuntu 8.10, USB SD card reader with 1GB card
+    </p>
+    <ol>
+      <li>USB storage device (#3) connects to UHCI controller.</li>
+      <li>VMware Virtual Hub device (#4) connects automatically to UHCI controller.</li>
+      <li>USB hub device is initialized.</li>
+      <li>USB storage device is probed with a SCSI INQUIRY, READ_CAPACITY, and MODE_SENSE.</li>
+      <li>The MODE_SENSE responds with an endpoint halt, which the VM clears.</li>
+      <li>From about 7 to 11 seconds, the kernel and Ubuntu's daemons make various-sized reads
+          in order to mount the filesystem and scan the directory tree.</li>
+      <li>Between 54 and 57 seconds, a JPEG file is copied off of
+      the storage device. Note the very deep asynchrony: Up to 30
+      URBs representing one SCSI command are all submitted
+      simultaneously. They complete sequentially, then the guest
+      submits another command.</li>
+    </ol>
+
+    <h3><tt><a href="samples/windows-storage-read.log.gz">windows-storage-read.log.gz</a></tt>
+    (9.7 MB)</h3>
+    <p>
+      Windows XP, USB SD card reader with 1GB card
+    </p>
+    <ol>
+      <li>This log starts out just like windows-storage-mount, above.</li>
+      <li>From 14 to 22 seconds, I open a directory of JPEG images and Windows Explorer reads thumbnails for each file.</li>
+      <li>From 25 to 30 seconds, I'm moving a JPEG image from the SD card to the desktop.</li>
+    </ol>
+
+    <h3><tt><a href="samples/windows-audio-playback.log.gz">windows-audio-playback.log.gz</a></tt>
+    (3.6 MB)</h3>
+    <p>
+      Windows XP, USB Headset with C-Media chipset
+    </p>
+    <ol>
+      <li>The device enumerates. Nothing too unusual, except that the driver asks for the device's string descriptor a total of 9 times. This is a composite device, with multiple USB audio interfaces and a HID interface.</li>
+      <li>At 24.3 seconds, the HID driver loads and opens a USB request for receiving HID events on EP3 IN.  One of these requests completes immediately with a notification of the device's default state (no buttons down), but the other one stays pending indefinitely until the device is disconnected.</li>
+      <li>At 30 seconds, the Windows device added 'ding' plays through the headphones.</li>
+      <li>Around 38 seconds, we start playing an audio stream. This is the Beethoven sample that comes with Windows Media Player. For the most part it plays smoothly, keeping three URBs buffered at all times. There are a couple hiccups, though, where disk activity causes the VM to pause briefly.</li>
+    </ol>
+  </div>
+
+  <div class="foot"> </div>
+</div>
+
+<div class="footer-logos">
+<a href="http://sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=248329&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a>
+</div>
+
+</body>
+</html>

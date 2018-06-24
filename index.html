@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Strict//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Virtual USB Analyzer</title>
+  <link rel="stylesheet" href="style.css" type="text/css" />
+  <link rel="stylesheet" href="lightbox.css" type="text/css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <script type="text/javascript" src="lightbox.js"></script>
+</head>
+<body>
+
+<div class="column">
+  <img src="vusb-analyzer-logo-96.png" class="logo" alt="vusb-analyzer logo"/>
+  <div class="h1prefix">the</div>
+  <h1>Virtual USB Analyzer</h1>
+
+  <div class="nav">
+    <a class="nav-current" href="index.html#">About</a>
+    <a class="nav" href="download.html">Download</a>
+    <a class="nav" href="tutorial.html">Tutorial</a>
+    <a class="nav" href="samples.html">Samples</a>
+  </div>
+
+  <div class="content">
+
+    <h2 class="first">Open source USB debugging, in style.</h2>
+
+    <a href="screenshots/iso-stream-800.png" rel="lightbox">
+      <img class="screenshot" src="screenshots/iso-stream-400.png" />
+    </a>
+
+    <p>
+    The Virtual USB Analyzer is a free and open source tool for
+    visualizing logs of USB packets, from hardware or software USB
+    sniffer tools. As far as we know, it's the world's first tool to
+    provide a graphical visualization along with raw hex dumps and
+    high-level protocol analysis.
+    </p>
+
+    <p>
+    The Virtual USB Analyzer is not itself a USB sniffer tool.  It is
+    just a user interface for visualizing logs. It currently supports
+    three log formats, but it's designed to be easily extensible. With a
+    couple dozen lines of Python code, you can add support for your
+    favorite log format.
+    </p>
+
+    <p>
+    We developed vusb-analyzer
+    at <a href="http://vmware.com">VMware</a> as an efficient way to
+    debug our own USB virtualization stack. We wanted a tool that made
+    it easy to see problems at a glance, and we wanted a way to solve
+    both correctness and performance bugs.  As a result, we ended up
+    with what we think is a fairly unique tool. We're excited to have
+    the opportunity now to release this tool as open source software,
+    under the MIT license.
+    </p>
+
+    <h2>Supported Log Formats</h2>
+
+    <ul>
+    <li>Logs from Linux's built-in USB sniffer, <b>usbmon</b>.</li>
+    <li>Logged USB traffic from debug builds of VMware Fusion,
+        Workstation, or Player. See <a href="tutorial.html">the
+        tutorial</a> for information on capturing such a log.</li>
+    <li>XML logs from the
+        <a href="http://www.ellisys.com/products/usbex200/index.php">Ellisys
+        USB Explorer 200</a>, a hardware USB 2.0 analyzer.</li>
+    </ul>
+
+    <h2>Features</h2>
+
+    <ul>
+    <li>Unique graphical timeline view.</li>
+    <li>Side-by-side diff mode: visually compare two log files.</li>
+    <li>Pluggable log format modules: VMware, Ellisys, usbmon.</li>
+    <li>Pluggable protocol decoders: USB Chapter 9, Bluetooth, Storage, Cypress FX2.</li>
+    <li>Packet metrics and filtering tools.</li>
+    <li>Whole-bus analysis: analyze multiple devices concurrently.</li>
+    <li>Written in Python, with a GTK+ user interface.</li>
+    <li>Automatic "tail -f" mode: follow log files as they grow.</li>
+    <li>Loads large log files in the background. You can start
+        browsing before the whole file is loaded into memory.</li>
+    <li>Automatic decompression of gzipped log files.</li>
+    </ul>
+
+    <h2>Contact</h2>
+
+    <p>
+    This project is provided as-is, with no official support from
+    VMware. However, I will try to answer questions as time permits.
+    If you have questions or you'd like to submit a patch, feel free
+    to email me at: micah at vmware.com
+    </p>
+
+  </div>
+
+  <div class="foot"> </div>
+</div>
+
+<div class="footer-logos">
+<a href="https://sourceforge.net/projects/vusb-analyzer/"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=248329&amp;type=4" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a>
+</div>
+
+</body>
+</html>
